@@ -8,6 +8,7 @@ using Unity.MLAgents.Sensors;
 public class MoveToPointAgent : Agent
 {
     [SerializeField] private Transform checkpointr;
+    [SerializeField] private GameObject floor;
     public float speed;
     //Cuando recibe una acción
     public override void OnActionReceived(ActionBuffers actions)
@@ -41,12 +42,14 @@ public class MoveToPointAgent : Agent
         //Si es una pared , se penaliza y se reinicia
         if (other.CompareTag("Wall"))
         {
+            floor.GetComponent<Renderer>().material.color = new Color(1, 0, 0,0.5f);
             AddReward(-1f);
             EndEpisode();
         }
         //Si es el punto final , se recompensa y se reinicia
         else if (other.CompareTag("Finish"))
         {
+            floor.GetComponent<Renderer>().material.color = new Color(0, 1, 0,0.5f);
             AddReward(1f);
             EndEpisode();
         }
