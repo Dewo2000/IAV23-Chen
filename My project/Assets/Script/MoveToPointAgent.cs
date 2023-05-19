@@ -30,7 +30,18 @@ public class MoveToPointAgent : Agent
     }
     private void OnTriggerEnter(Collider other)
     {
-        AddReward(1f);
-        EndEpisode();
+        //Si es una pared , se penaliza y se reinicia
+        if (other.CompareTag("Wall"))
+        {
+            AddReward(-1f);
+            EndEpisode();
+        }
+        //Si es el punto final , se recompensa y se reinicia
+        else if (other.CompareTag("Finish"))
+        {
+            AddReward(1f);
+            EndEpisode();
+        }
+      
     }
 }
