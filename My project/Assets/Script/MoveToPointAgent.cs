@@ -9,14 +9,20 @@ public class MoveToPointAgent : Agent
 {
     [SerializeField] private Transform checkpointr;
     public float speed;
+    //Cuando recibe una acción
     public override void OnActionReceived(ActionBuffers actions)
     {
+        //La posición 0 del array lo interpretamos como la posición del agente en el punto x
+        //La posición 1 del array lo interpretamos como la posición del agente en el punto z
         float x = actions.ContinuousActions[0];
         float z = actions.ContinuousActions[1];
+        //Se le suma esa posición al agente
         transform.position += new Vector3(x, 0, z) * Time.deltaTime * speed;
     }
+    //Para obtener observaciones
     public override void CollectObservations(VectorSensor sensor)
     {
+        //Se añade como observa
         sensor.AddObservation(transform.position);
         sensor.AddObservation(checkpointr.position);
     }
@@ -42,6 +48,5 @@ public class MoveToPointAgent : Agent
             AddReward(1f);
             EndEpisode();
         }
-      
     }
 }
