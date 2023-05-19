@@ -18,19 +18,19 @@ public class MoveToPointAgent : Agent
         float x = actions.ContinuousActions[0];
         float z = actions.ContinuousActions[1];
         //Se le suma esa posición al agente
-        transform.position += new Vector3(x, 0, z) * Time.deltaTime * speed;
+        transform.localPosition += new Vector3(x, 0, z) * Time.deltaTime * speed;
     }
     //Para obtener observaciones
     public override void CollectObservations(VectorSensor sensor)
     {
         //Se añade como observa
-        sensor.AddObservation(transform.position);
-        sensor.AddObservation(checkpointr.position);
+        sensor.AddObservation(transform.localPosition);
+        sensor.AddObservation(checkpointr.localPosition);
     }
     public override void OnEpisodeBegin()
     {
-        transform.position = new Vector3(Random.Range(-3f,3f),0,Random.Range(-3f, 3f));
-        checkpointr.position = new Vector3(Random.Range(-10f, -5f), 0, Random.Range(-3f, 3f));
+        transform.localPosition = new Vector3(Random.Range(0,6f),0,Random.Range(-3f, 3f));
+        checkpointr.localPosition = new Vector3(Random.Range(-6f, -2f), 0, Random.Range(-3f, 3f));
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
