@@ -19,9 +19,24 @@ La propuesta en este trabajo se trata de una escena simple de unity de la cual e
 
 Despues del entrenamiento del agente , se deberá notar en una primera ejecución que el agente tiene un comportamiento inteligente para llegar a la meta.
 ## Punto de Partida
-Se empezará con un proyecto vacío de Unity en la cual importaremos el asset package de MLAgent de unity.
+Se empezará con un proyecto vacío de Unity en la cual importaremos el asset package de MLAgent de unity.La versión utilizada es la Release 17.
 
 Los materiales será simples creado por mí mismo o assets del asset store de unity gratuitos.
 ## Diseño de la solución
 Antes de empezar con el entrenamiento del agente , es necesario hacer unas cuantas configuraciones e instalaciones.
 
+
+-Instalación de Python
+
+-Instalación de entorno virtual Python
+
+-Instalación de MlAgent en Python
+
+
+En unity:
+
+-Configurar el script de agente para anotar las obvervaciones , deciciones , acciones y recompensa.
+
+-Entrenar el agente, con esto se genera un archivo que es el brain del agente.
+
+-Con ese brain, se le puede asignar al agente para que se comporte de la forma como ha sido entrenado.
