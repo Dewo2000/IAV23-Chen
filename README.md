@@ -14,3 +14,14 @@ Esta herramienta está basada en el aprendizaje por refuerzo , la cual basada en
       D--No ha llegado a la meta-->A;
       E--No ha llegado a la meta-->A;
 ```
+## Propuesta
+La propuesta en este trabajo se trata de una escena simple de unity de la cual existe una plataforma y dos objetos.Un player la cual será el agente a la que entrenaremos y un checkpoint que será la posición que tiene que llegar el player.Se trata en esta parte de entrenar al agente para que desde cualquier posición pueda llegar al checkpoint situado en una posición aleatoria. Esta escena principal es simple para aplicar los conceptos y las herramientas de MLAgent de forma sencilla por la cual muy posiblemente se haga otra escena de ampliación en la que las cosas son un poco más complicadas.
+
+Despues del entrenamiento del agente , se deberá notar en una primera ejecución que el agente tiene un comportamiento inteligente para llegar a la meta.
+## Punto de Partida
+Se empezará con un proyecto vacío de Unity en la cual importaremos el asset package de MLAgent de unity.
+
+Los materiales será simples creado por mí mismo o assets del asset store de unity gratuitos.
+## Diseño de la solución
+Antes de empezar con el entrenamiento del agente , es necesario hacer unas cuantas configuraciones e instalaciones.
+
