@@ -27,11 +27,30 @@ Los materiales será simples creado por mí mismo o assets del asset store de un
 Antes de empezar con el entrenamiento del agente , es necesario hacer unas cuantas configuraciones e instalaciones.
 
 
--Instalación de Python
+-Instalación de Python, ver en la documentación la versión que se pide , en este caso 3.6.1  o mayor , se ha optado por utilizar el último release de versión 3.7.9 . 
 
--Instalación de entorno virtual Python
+-Creación del entorno virtual de python.
+
+```
+//Desde el directorio del proyecto de unity , venv= virtual environment
+py -m venv venv
+```
+Este proceso se hace para separar las configuraciones de python del proyecto en un entorno aparte y asi no pisar las configuraciones del sistema.
+Todas las configuraciones en este entorno no tendrá impacto en otros proyectos de python.
 
 -Instalación de MlAgent en Python
+```
+//Dentro del venv para updatear el último paquete de pip
+py -m pip install --upgrade pip
+
+// Pytorch es una dependencia que tiene mlAgent por lo que es necesario instalarlo.
+pip3 install torch~=1.7.1 -f https://download.pytorch.org/whl/torch_stable.html
+
+// Para instalar mlagents
+pip install mlagents
+
+```
+[Guia de instalación](https://github.com/Unity-Technologies/ml-agents/blob/release_17_branch/docs/Installation.md)
 
 
 En unity:
@@ -41,3 +60,8 @@ En unity:
 -Entrenar el agente, con esto se genera un archivo que es el brain del agente.
 
 -Con ese brain, se le puede asignar al agente para que se comporte de la forma como ha sido entrenado.
+
+
+Problemas:
+
+-Se ha encontrado problemas a la hora de instalar pytorch , utilizando la última versión de python 3.11.3 no se instala la versión 1.7.1.
