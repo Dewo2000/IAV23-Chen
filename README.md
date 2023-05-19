@@ -27,7 +27,7 @@ Los materiales será simples creado por mí mismo o assets del asset store de un
 Antes de empezar con el entrenamiento del agente , es necesario hacer unas cuantas configuraciones e instalaciones.
 
 
--Instalación de Python, ver en la documentación la versión que se pide , en este caso 3.6.1  o mayor , se ha optado por utilizar el último release de versión 3.7.9 . 
+-Instalación de Python, ver en la documentación la versión que se pide , en este caso 3.6.1  o mayor , se ha optado por utilizar el último release de versión 3.6.8 . 
 
 -Creación del entorno virtual de python.
 
@@ -45,9 +45,8 @@ py -m pip install --upgrade pip
 
 // Pytorch es una dependencia que tiene mlAgent por lo que es necesario instalarlo.
 pip3 install torch~=1.7.1 -f https://download.pytorch.org/whl/torch_stable.html
-
 // Para instalar mlagents
-pip install mlagents
+python -m pip install mlagents==0.26.0
 
 ```
 [Guia de instalación](https://github.com/Unity-Technologies/ml-agents/blob/release_17_branch/docs/Installation.md)
@@ -65,3 +64,4 @@ En unity:
 Problemas:
 
 -Se ha encontrado problemas a la hora de instalar pytorch , utilizando la última versión de python 3.11.3 no se instala la versión 1.7.1.
+-Se ha encontrado problemas a la hora de ejecutar mlagent-learn con python 3.7.9 por lo que se ha probado con distintas versiones y se ha elegido la 3.6.8 .
