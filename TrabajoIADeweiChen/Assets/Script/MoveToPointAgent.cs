@@ -29,7 +29,8 @@ public class MoveToPointAgent : Agent
     }
     public override void OnEpisodeBegin()
     {
-        transform.position = Vector3.zero;
+        transform.position = new Vector3(Random.Range(-3f,3f),0,Random.Range(-3f, 3f));
+        checkpointr.position = new Vector3(Random.Range(-10f, -5f), 0, Random.Range(-3f, 3f));
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
