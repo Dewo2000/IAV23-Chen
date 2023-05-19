@@ -28,11 +28,13 @@ public class MoveToPointAgent : Agent
     }
     public override void OnEpisodeBegin()
     {
-        
+        transform.position = Vector3.zero;
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-       
+       ActionSegment<float> actions =  actionsOut.ContinuousActions;
+        actions[0] = Input.GetAxisRaw("Horizontal");
+        actions[1] = Input.GetAxisRaw("Vertical");
     }
     private void OnTriggerEnter(Collider other)
     {
