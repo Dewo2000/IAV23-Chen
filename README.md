@@ -3,7 +3,9 @@ Trabajo final Inteligencia Artificial 2023.
 
 El trabajo consiste en investigar y utilizar en un pequeño ejemplo la herramienta de Machine Learning MLAgent proporcionado por unity. Es una herramienta para el aprendizaje automático de unos agentes para que haga cierto tarea,movimiento , para que tenga una "inteligencia".
 
-Esta herramienta está basada en el aprendizaje por refuerzo , la cual basada en una observación,hace una decisión de la cual convella a una acción y si la acción es la correcta , recibe una recompensa.
+Esta herramienta tiene dos modos de aprendizaje :
+- Una basada en el aprendizaje por refuerzo , la cual basada en una observación,hace una decisión de la cual convella a una acción y si la acción es la correcta , recibe una recompensa.
+
 
 ```mermaid
   flowchart TD;
@@ -14,9 +16,13 @@ Esta herramienta está basada en el aprendizaje por refuerzo , la cual basada en
       D--No ha llegado a la meta-->A;
       E--No ha llegado a la meta-->A;
 ```
+- Otra basada en el aprendizaje por imitación , es decir , habrá un humano que este jugando y la herramienta recopilará datos para intentar imitar las acciones del jugador.
+
 Toda documentación relacionado con la herramienta se encuentra en este [enlace](https://github.com/Unity-Technologies/ml-agents)
 ## Propuesta
-La propuesta en este trabajo se trata de una escena simple de unity de la cual existe una plataforma y dos objetos.Un player la cual será el agente a la que entrenaremos y un checkpoint que será la posición que tiene que llegar el player.Se trata en esta parte de entrenar al agente para que desde cualquier posición pueda llegar al checkpoint situado en una posición aleatoria. Esta escena principal es simple para aplicar los conceptos y las herramientas de MLAgent de forma sencilla por la cual muy posiblemente se haga otra escena de ampliación en la que las cosas son un poco más complicadas.
+La propuesta en este trabajo se trata de una escena simple de unity de la cual existe una plataforma y dos objetos.Un player la cual será el agente a la que entrenaremos y un checkpoint que será la posición que tiene que llegar el player.Se trata en esta parte de entrenar al agente para que desde cualquier posición pueda llegar al checkpoint situado en una posición aleatoria. Esta escena principal es simple para aplicar los conceptos y las herramientas de MLAgent de forma sencilla.
+
+La idea es con la misma escena o una escena simple muy parecida, se utilice los dos tipos de aprendizaje automático, si la escena fuera la misma , se puede hacer una comparación entre esos dos métodos.
 
 Despues del entrenamiento del agente , se deberá notar en una primera ejecución que el agente tiene un comportamiento inteligente para llegar a la meta.
 ## Punto de Partida

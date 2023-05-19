@@ -29,12 +29,12 @@ public class MoveToPointAgent : Agent
     }
     public override void OnEpisodeBegin()
     {
-        transform.localPosition = new Vector3(Random.Range(0,6f),0,Random.Range(-3f, 3f));
+        transform.localPosition = new Vector3(Random.Range(0, 6f), 0, Random.Range(-3f, 3f));
         checkpointr.localPosition = new Vector3(Random.Range(-6f, -2f), 0, Random.Range(-3f, 3f));
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-       ActionSegment<float> actions =  actionsOut.ContinuousActions;
+        ActionSegment<float> actions = actionsOut.ContinuousActions;
         actions[0] = Input.GetAxisRaw("Horizontal");
         actions[1] = Input.GetAxisRaw("Vertical");
     }
@@ -43,14 +43,14 @@ public class MoveToPointAgent : Agent
         //Si es una pared , se penaliza y se reinicia
         if (other.CompareTag("Wall"))
         {
-            floor.GetComponent<Renderer>().material.color = new Color(1, 0, 0,0.5f);
+            floor.GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0.5f);
             AddReward(-1f);
             EndEpisode();
         }
         //Si es el punto final , se recompensa y se reinicia
         else if (other.CompareTag("Finish"))
         {
-            floor.GetComponent<Renderer>().material.color = new Color(0, 1, 0,0.5f);
+            floor.GetComponent<Renderer>().material.color = new Color(0, 1, 0, 0.5f);
             AddReward(1f);
             EndEpisode();
         }
