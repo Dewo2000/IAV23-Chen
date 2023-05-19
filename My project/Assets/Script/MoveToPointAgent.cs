@@ -28,4 +28,9 @@ public class MoveToPointAgent : Agent
     {
        
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        AddReward(1f);
+        EndEpisode();
+    }
 }
