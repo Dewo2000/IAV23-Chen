@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8206846472690336079}
   - component: {fileID: 8206846472690336076}
   - component: {fileID: 1883518325516373270}
+  - component: {fileID: 5103193301036006080}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -36,7 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8206846472704801182}
-  m_RootOrder: 1
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8206846472690336073
 MeshFilter:
@@ -123,7 +124,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 86802726caae1c14aa81fef399c7ad86, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: d79db2e0ee88c2148a0aa4cf200fce4a, type: 3}
   m_InferenceDevice: 3
   m_BehaviorType: 2
   m_BehaviorName: MoveToPoint
@@ -149,6 +150,8 @@ MonoBehaviour:
   MaxStep: 10000
   checkpointr: {fileID: 8206846473470212279}
   floor: {fileID: 8206846472749715101}
+  fail: {fileID: 2100000, guid: 623ecb8576f3bbf4ea2c67f04e89ca49, type: 2}
+  success: {fileID: 2100000, guid: 383c65983d8b898418038413c0cb9891, type: 2}
   speed: 5
 --- !u!114 &8206846472690336076
 MonoBehaviour:
@@ -180,6 +183,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5103193301036006080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8206846472690336068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Record: 0
+  NumStepsToRecord: 0
+  DemonstrationName: MoveToPointDemo
+  DemonstrationDirectory: Demos
 --- !u!1 &8206846472704801183
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,12 +228,12 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8206846472749715073}
-  - {fileID: 8206846472690336072}
   - {fileID: 8206846473470212279}
   - {fileID: 8206846473989361097}
   - {fileID: 8206846473377140689}
   - {fileID: 8206846474011176482}
   - {fileID: 8206846472902084973}
+  - {fileID: 8206846472690336072}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -347,7 +366,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8206846472704801182}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &8206846472902084974
 MeshFilter:
@@ -444,7 +463,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8206846472704801182}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8206846473377140690
 MeshFilter:
@@ -541,7 +560,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8206846472704801182}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8206846473470212272
 MeshFilter:
@@ -638,7 +657,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8206846472704801182}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8206846473989361098
 MeshFilter:
@@ -735,7 +754,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8206846472704801182}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &8206846474011176483
 MeshFilter:

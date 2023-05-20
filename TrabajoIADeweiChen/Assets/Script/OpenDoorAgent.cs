@@ -5,9 +5,9 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 
-public class MoveToPointAgent : Agent
+public class OpenDoorAgent : Agent
 {
-    [SerializeField] private Transform checkpointr;
+    [SerializeField] private Transform button;
     [SerializeField] private GameObject floor;
     [SerializeField] private Material fail;
     [SerializeField] private Material success;
@@ -29,13 +29,13 @@ public class MoveToPointAgent : Agent
     {
         //Se añade como observa
         sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(checkpointr.localPosition);
+        sensor.AddObservation(button.localPosition);
         //sensor.AddObservation(transform.localPosition - checkpointr.localPosition);
     }
     public override void OnEpisodeBegin()
     {
         transform.localPosition = new Vector3(Random.Range(0, 6f), 0, Random.Range(-3f, 3f));
-        checkpointr.localPosition = new Vector3(Random.Range(-6f, -2f), 0, Random.Range(-3f, 3f));
+        button.localPosition = new Vector3(Random.Range(-6f, -2f), 0, Random.Range(-3f, 3f));
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
