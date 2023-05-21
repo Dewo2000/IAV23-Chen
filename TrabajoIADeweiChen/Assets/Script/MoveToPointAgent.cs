@@ -22,14 +22,16 @@ public class MoveToPointAgent : Agent
         //Se le suma esa posición al agente
         transform.localPosition += new Vector3(x, 0, z) * Time.deltaTime * speed;
 
-        //AddReward(-1f / MaxStep);
+        AddReward(-1f / MaxStep);
     }
     //Para obtener observaciones
     public override void CollectObservations(VectorSensor sensor)
     {
         //Se añade como observa
-        sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(checkpointr.localPosition);
+        sensor.AddObservation(transform.localPosition.x);
+        sensor.AddObservation(transform.localPosition.z);
+        sensor.AddObservation(checkpointr.localPosition.x);
+        sensor.AddObservation(checkpointr.localPosition.z);
         //sensor.AddObservation(transform.localPosition - checkpointr.localPosition);
     }
     public override void OnEpisodeBegin()

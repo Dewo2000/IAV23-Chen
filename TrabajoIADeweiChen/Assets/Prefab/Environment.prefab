@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 6
+    VectorObservationSize: 4
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
@@ -124,9 +124,9 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: d79db2e0ee88c2148a0aa4cf200fce4a, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 3
-  m_BehaviorType: 2
+  m_BehaviorType: 0
   m_BehaviorName: MoveToPoint
   TeamId: 0
   m_UseChildSensors: 1
