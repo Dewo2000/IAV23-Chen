@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 4
+    VectorObservationSize: 2
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
@@ -147,7 +147,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 10000
+  MaxStep: 1000
   checkpointr: {fileID: 8206846473470212279}
   floor: {fileID: 8206846472749715101}
   fail: {fileID: 2100000, guid: 623ecb8576f3bbf4ea2c67f04e89ca49, type: 2}
