@@ -140,22 +140,66 @@ Recompensas y final de episodio:
 En este caso se recibe una recompensa si es capáz de llegar a la meta, y se recibe una penalización en caso de chocarse con la pared , ambos casos se termina el episodio y se empieza uno nuevo.
 
 
-- Se le asigna este script al objeto agente en la escena y se le añade de forma automática otro script llamado Behavior Parameters
+- Se le asigna este script al objeto agente en la escena y se le añade de forma automática otro script llamado Behavior Parameters.
 
 <image src="/Images/Bh.png">
 
+Behavior Name: Nombre del comportamiento
+
+Vector Observation : El vector donde guardarse todas las observaciónes.
+
+Space Size : El tamaño del vector , si por ejemplo se guarda la observación de un vector3 y un booleano, entonces su tamaño es 4 , siendo las xyz del vector y el boolenano.
+
+Stacket Vector : Opción un poco más avanzada , para indicar el número de vectores antiguos a tener en cuenta , si está a uno , solo tendrá en cuenta el vector de observaciones actual.
+
+Actions : Las acciones que puede hacer el agente , se diferencia en dos tipos , continuas o discretas.
+
+Continuous Actions : El número del tamaño del vector de acciones contínuas , las acciones contínuas devuelve un número en float de -1 a 1 . En este caso se usa un tamaño de dos , uno para movimiento en el eje X y otro para el eje Z.
+
+Discrete Branch : El tamaño del vector de acciones discretas. Una vez puesto un número mayor a 0 , aparecerá por debajo para definir el número de posibles valores para cada branch. Por ejemplo en este caso , en vez de utilizar las acciones contínuas , se puede usar las acciones discretas en tamaño dos (uno para ejeX otro para ejeZ) , donde el tamaño de cada branch es 3 (0=No mueve ,1=Mover Derecha 2=Mover Izquierda , parecido en el ejeZ).
+Se utiliza en el escena2 para hacer variantes.
+
+Model : Aqui se pone la red neuronal generada después del aprendizaje , obviamente en un principio sera None ya que no existe ninguno.
+
+Inference Device : El dispositivo que se va a usar para los cálculos , en este caso se usa cpu porque se ha descargado el pytorch para cpu solo.
+
+Behavior Type : El tipo del comportamiento , si es heuristic pues usará el código del script para moverse manualmente , sirve para hacer test del correcto funcionamiento de la escena , si es inference , usará la red neuronal generado después del aprendizaje , sirve para comprobar el correcto funcionamiento del aprendizaje y ya para que el agente se comporte de forma inteligente. La última opción default que deberá estar activado antes de empezar el aprendizaje.
+
+
 <image src="/Images/MaxStep.png">
 
+Si se hereda de la clase agents , nos mostrará una configuración de los pasos máximos que puede dar el agente antes de reiniciarse , un valor muy alto puede ocasionar que el agente se quede atascado en una esquina y no pueda avanzar , y un valor muy bajo puede ocasionar que los pasos dados no sean lo suficiente para llegar a la meta y te reinicia antes de conseguirlo por lo que ocasiona que nunca se de el correcto.
 
+ 
+  
+   
 
+Si todo lo anterior se ha configurado bien , ahora deberíamos poder empezar con el aprendizaje.
 
+Para agilizar el proceso de configuraciones de parámetros , se crea un archivo .yaml donde se indica todas las configuraciones necesarias para este aprendizaje. Ejemplo de archivo se encuentra en la carpeta config. Todos los parametros y sus significados se encuentra en este [enlace](https://github.com/Unity-Technologies/ml-agents/blob/release_17_branch/docs/Training-Configuration-File.md).
 
+Una vez teniendo todo lo anterior se puede empezar a usar la herramienta.
+```
+mlagents-learn config\moveToPoint.yaml --run-id=MoveToPoint
+```
+//Imagen a cambiar
+<image src="/Images/MaxStep.png">
 
--Configurar el script de agente para anotar las obvervaciones , deciciones , acciones y recompensa.
+Saldrá esto y ya dandole al play en unity empezará el proceso de aprendizaje.
 
--Entrenar el agente, con esto se genera un archivo que es el brain del agente.
+### Resultados Escena1
 
--Con ese brain, se le puede asignar al agente para que se comporte de la forma como ha sido entrenado.
+Podemos ver el aprendizaje en la versión V1.
+
+<image src="/Images/MP_V1.png">
+
+Vemos que empieza a probar valores pero los resultados obtenidos no son muy buenos (se choca contra la pared) y por tanto la recompensa media es negativa. Pero a medida que va avanzando el tiempo se da cuenta de cómo tiene que llegar y sube poco a poco la recompensa media llegando así al final del entrenamiento una recompensa media de 0.991 , la más alta en este caso es un 1.
+
+En el aprendizaje de la versión V2.
+
+<image src="/Images/MP_V1.png">
+
+Al igual que en el V1 , empieza con una recompensa media negativa , pero podemos notar que las recompensas suben de manera más rápida que en la versión V1 , esto es simplemente por haber cambiado la observación , obteniendo asi entonces un resultado mucho mejor en comparación con la primera.
 
 
 ## Problemas:
