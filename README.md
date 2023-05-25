@@ -170,11 +170,14 @@ Behavior Type : El tipo del comportamiento , si es heuristic pues usará el cód
 
 Si se hereda de la clase agents , nos mostrará una configuración de los pasos máximos que puede dar el agente antes de reiniciarse , un valor muy alto puede ocasionar que el agente se quede atascado en una esquina y no pueda avanzar , y un valor muy bajo puede ocasionar que los pasos dados no sean lo suficiente para llegar a la meta y te reinicia antes de conseguirlo por lo que ocasiona que nunca se de el correcto.
 
- 
+
+Para que empieze a tomar las decisiones , es necesario añadir al agente el script Decision Requester , no es necesario configurar nada aqui.
   
    
 
 Si todo lo anterior se ha configurado bien , ahora deberíamos poder empezar con el aprendizaje.
+
+Para que el aprendizaje vaya más rápido , podemos crear un prefab del entorno y multiplicarlo por mucho, asi tendremos a muchos agentes aprendiendo en paralelo.
 
 Para agilizar el proceso de configuraciones de parámetros , se crea un archivo .yaml donde se indica todas las configuraciones necesarias para este aprendizaje. Ejemplo de archivo se encuentra en la carpeta config. Todos los parametros y sus significados se encuentra en este [enlace](https://github.com/Unity-Technologies/ml-agents/blob/release_17_branch/docs/Training-Configuration-File.md).
 
@@ -201,6 +204,138 @@ En el aprendizaje de la versión V2.
 
 Al igual que en el V1 , empieza con una recompensa media negativa , pero podemos notar que las recompensas suben de manera más rápida que en la versión V1 , esto es simplemente por haber cambiado la observación , obteniendo asi entonces un resultado mucho mejor en comparación con la primera.
 
+### Escena 2
+
+En esta escena el agente tiene que accionar un botón para eliminar el muro y llegar a la meta.
+
+El proceso de configuración es igual a la primera teniendo en cuenta pequeños detalles.
+
+Acciones: 
+
+public override void OnActionReceived(ActionBuffers actions)
+    {
+        //La posición 0 del array lo interpretamos como la posición del agente en el punto x
+        //La posición 1 del array lo interpretamos como la posición del agente en el punto z
+
+        int x = actions.DiscreteActions[0]; //0:No se mueve 1:Derecha 2:Izquierda
+        int z = actions.DiscreteActions[1]; //0:No se mueve 1:Delante 2:Detras
+
+        Vector3 force = new Vector3(0,0,0);
+        switch (x)
+        {
+            case 0: force.x = 0f;
+                break;
+            case 1:
+                force.x = 1f;
+                break;
+            case 2:
+                force.x = -1f;
+                break;
+        }
+        switch (z)
+        {
+            case 0:
+                force.z = 0f;
+                break;
+            case 1:
+                force.z = 1f;
+                break;
+            case 2:
+                force.z = -1f;
+                break;
+        }
+        //transform.localPosition += new Vector3(x, 0, z) * Time.deltaTime * speed;
+        GetComponent<Rigidbody>().velocity = force * speed + new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
+
+        //AddReward(-1f / MaxStep);
+    }
+En este caso se ha usado la acción discreta que dependiendo del número que salga se le sumará una fuerza u otra.
+
+Observación : 
+
+    public override void CollectObservations(VectorSensor sensor)
+        {
+            //Se añade como observa
+            Vector3 dirToButton = (button.transform.localPosition - transform.localPosition).normalized;
+            sensor.AddObservation(dirToButton.x);
+            sensor.AddObservation(dirToButton.z);
+            bool doorOpen = button.GetComponent<DoorButton>().isOpen();
+            sensor.AddObservation(doorOpen);
+            if (doorOpen)
+            {
+                Vector3 dirToCheckpoing = (checkPoint.transform.localPosition - transform.localPosition).normalized;
+                sensor.AddObservation(dirToCheckpoing.x);
+                sensor.AddObservation(dirToCheckpoing.z);
+            }
+            else
+            {
+                sensor.AddObservation(0f);
+                sensor.AddObservation(0f);
+            }
+        }
+
+En este caso se añade como observación el estado el muro , no se le da la dirección del checkpoint hasta que el muro no sea desactivado.
+
+Los demás métodos son muy parecidos cambiando por ejemplo , se da recompensa cuando acciona el botón. Se puede mirar detalladamente en el script.
+
+Lo que sí es que en esta escena se va a hacer una comparación entre el aprendizaje por refuerzo y el de por imitación.
+
+Para ello es necesario grabar una demo en la cual estemos resolviendo el problema.
+
+- Además de todos los componentes mencionados en la escena uno , se añade un nuevo componente llamada Demostration Recorder , solo es necesario añadirlo a uno , sin añadirlo al prefab.
+
+- Se espicifica el directorio de salida y el nombre del archivo que se va a generar.
+
+- Darle al tick a record
+
+- Cambiar el Behavior Type a heuristic para que podamos controlar manualmente al agente.
+
+- Darle al play y jugar/ realizar las acciones necesarias.
+
+Después de todo eso , obtendremos un archivo .demo.
+
+Con eso , configuramos el archivo yaml para que tenga en cuenta la demo. 
+
+      gail:
+          strength: 0.2
+          demo_path: Demos/OpenDoorDemo.demo
+      behavioral_cloning:
+          strength: 0.3
+          demo_path: Demos/OpenDoorDemo.demo
+
+Gail : usa un discriminador para elegir las acciones a realizar.
+
+Behavioral_cloning : Hace las acciones identicas de las que aparecen en la demo.
+
+Strength: La cantidad que afecta en el aprendizaje.
+
+Con todo lo de arriba configurado , ahora podemos hacer la prueba de diferencia entre el aprendizaje por refuerzo y por imitación en esta escena.
+
+### Resultado Escena2 
+
+En esta escena se obtiene un punto por accionar un botón y otro punto por llegar a la meta , por lo tanto la puntuación máxima es de 2.
+
+En la versión de aprendizaje por refuerzo , podemos ver que aprende a pulsar el botón por lo que obtiene un punto , pero a partir de alli ya no sabe que hacer , por lo que se queda quieto hasta que llegue el max step, en ningún momento se ha logrado completar el task entero.
+
+<image src="/Images/OD_Normal.png">
+
+En la versión de aprendizaje por imitación podemos ver que desde un principio ya algunos agentes consigue el task completo por lo que el mean reward es superior a uno.Pero a medida que va avanzando en el tiempo , tiene más en cuenta las variables aleatorias que los datos del demo , por lo tanto va bajando el mean reward. No he encontrado ninguna información que explique este fenómeno ,pero puedo suponer que es una incompatibilidad del demo con las observaciones y acciones que toma la herramienta.
+
+<image src="/Images/OD_Imitation.png">
+
+Por curiosidad y por tener una red neuronal buena para resolver este task , he probado que la herramienta haga el aprendizaje por refuerzo , partiendo de los resultados obtenidos en el aprendizaje por imitación.
+```
+mlagents-learn config\OpenDoor.yaml --initialize-from="ID del Imitación" --run-id=Learn_after_imitiation
+```
+
+Los resultados obtenidos parece ser muy buenos en la cual ya desde un principio se consigue pulsar el botón y algunos consiguen completar el task , despúes de pocos pasos más , ya el número de agentes que consiguen completar el task es mayor , llegando asi a la puntuación máxima en la mitad del proceso de aprendizaje
+
+<image src="/Images/OD_AfterImitation.png">
+
+La conclusión a la que he llegado es que , para las tareas complicadas , el aprendizaje por refuerzo puede tardar mucho o incluso fallar.
+El aprendizaje por imitación es muy útil para un inicio , pero posteriormente se ve afectado por las variables aleatorias.
+
+Una forma realmente efectiva es la combinación de ambas para el aprendizaje.
 
 ## Problemas:
 
@@ -213,16 +348,20 @@ Al igual que en el V1 , empieza con una recompensa media negativa , pero podemos
 
 | Prueba | Descripción |
 |----------|----------|
-| A    | El avatar se mueve por el mundo virtual con el raton izquierdo   | 
-| B    | Publico huye cuando cae su respectivo foco y vuelve cuando se levanta  | 
-| C1    |La cantante canta y descansa cíclicamente  |
-| C2    | La cantante puede ser llevada por el fantasma y el vizconde, y a este último le sigue  | 
-| C3   | La cantante deambula en zona desconocida  | 
-| D   | Comportamiento en detalle del fantasma   |
-| E    | Detección de eventos del fantasma  | 
-
+| A    | Resultado de la escena1 versión V1   | 
+| B    | Resultado de la escena1 versión V2  | 
+| C   | Resultado de la escena2 aprendizaje por refuerzo   |
+| D    | Resultado de la escena2 aprendizaje por imitación   | 
+| E   | Resultado de la escena2 aprendizaje por refuerzo a partir de unos resultados generado por aprendizaje por imitación   | 
 
 
 ## Referencias
 
 - [Documentos de MLAgents release 17](https://github.com/Unity-Technologies/ml-agents/tree/release_17_branch/docs)
+
+- [How to use Machine Learning AI in Unity! - CODEMONKEY](https://www.youtube.com/watch?v=zPFU30tbyKs)
+
+- [Teach your AI! Imitation Learning with Unity ML-Agents! - CODEMONKEY](https://www.youtube.com/watch?v=supqT7kqpEI)
+
+- [Unity MLAgents ToolKit](https://github.com/Unity-Technologies/ml-agents)
+
