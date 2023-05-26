@@ -198,6 +198,8 @@ Podemos ver el aprendizaje en la versión V1.
 
 Vemos que empieza a probar valores pero los resultados obtenidos no son muy buenos (se choca contra la pared) y por tanto la recompensa media es negativa. Pero a medida que va avanzando el tiempo se da cuenta de cómo tiene que llegar y sube poco a poco la recompensa media llegando así al final del entrenamiento una recompensa media de 0.991 , la más alta en este caso es un 1.
 
+**Nota Importante** : Para usar la red neuronal V1 , es necesario cambiar Vector Observation a 4 como está implementado en el código. En el código comentar la parte de V2 y descomentar V1.
+
 En el aprendizaje de la versión V2.
 
 <image src="/Images/MP_V1.png">
@@ -354,6 +356,11 @@ Una forma realmente efectiva es la combinación de ambas para el aprendizaje.
 | D    | Resultado de la escena2 aprendizaje por imitación   | 
 | E   | Resultado de la escena2 aprendizaje por refuerzo a partir de unos resultados generado por aprendizaje por imitación   | 
 
+[Video de las pruebas ](https://www.youtube.com/watch?v=MQAyFVS4SFQ)
+
+## Conclusiones
+
+MLAgents es una herramienta muy buena para hacer IA inteligentes, la dificultad de la herramienta depende de el objetivo final que se quiera conseguir. Es difícil de empezar y la diferencia de los resultados puede llegar a ser enorme dependiendo del conocimiento de cada uno sobre la herramienta , pero si se investiga y se hace pruebas y dedicas tiempo , al final puede salir un resultado muy interesante.
 
 ## Referencias
 

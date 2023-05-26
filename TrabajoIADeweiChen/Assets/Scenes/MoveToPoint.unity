@@ -1905,10 +1905,10 @@ PrefabInstance:
     - target: {fileID: 8206846472690336078, guid: 793c6753c95d1aa4a89ae9aee3a90069, type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5022602860645237092, guid: 5f8cf4d2e781cc64bacfef98b97d1e52, type: 3}
     - target: {fileID: 8206846472690336078, guid: 793c6753c95d1aa4a89ae9aee3a90069, type: 3}
       propertyPath: m_BehaviorType
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8206846472704801182, guid: 793c6753c95d1aa4a89ae9aee3a90069, type: 3}
       propertyPath: m_RootOrder

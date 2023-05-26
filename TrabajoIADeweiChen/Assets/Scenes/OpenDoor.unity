@@ -1959,7 +1959,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2434380980195921918, guid: 1fc28adf3971a2f41b0b42c51695654d, type: 3}
       propertyPath: m_BehaviorType
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2434380982061632585, guid: 1fc28adf3971a2f41b0b42c51695654d, type: 3}
       propertyPath: m_RootOrder
